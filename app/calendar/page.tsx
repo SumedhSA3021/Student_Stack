@@ -1,0 +1,24 @@
+import { AppLayout } from '@/components/AppLayout';
+import { CalendarContent } from './CalendarContent';
+import { Providers } from '../providers';
+
+// ISR: Revalidate every hour
+export const revalidate = 3600;
+
+// Server-side data fetching
+async function getOpportunities() {
+  const { getLiveOpportunities } = await import('@/lib/opportunities');
+  return getLiveOpportunities();
+}
+
+export default async function CalendarPage() {
+  const opportunities = await getOpportunities();
+
+  return (
+    <Providers opportunities={opportunities}>
+      <AppLayout currentPath="/calendar">
+        <CalendarContent />
+      </AppLayout>
+    </Providers>
+  );
+}
