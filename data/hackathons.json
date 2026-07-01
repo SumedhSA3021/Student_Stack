@@ -1,16 +1,5 @@
 [
   {
-    "title": "Google Summer of Code 2026",
-    "description": "Work with open source organizations on real projects. Get paid stipend while learning from experienced mentors in the community.",
-    "provider": "Google",
-    "value": "₹2.5L - ₹5.5L stipend",
-    "url": "https://summerofcode.withgoogle.com",
-    "tags": ["Open Source", "Mentorship", "Stipend"],
-    "source": "gsoc",
-    "event_type": "hackathon",
-    "registrationUrl": "https://summerofcode.withgoogle.com"
-  },
-  {
     "title": "MLH Global Hack Week: AI/ML Edition",
     "description": "A week-long hackathon celebrating artificial intelligence and machine learning. Build projects, attend workshops, and win prizes.",
     "provider": "Major League Hacking",
