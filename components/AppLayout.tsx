@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useRef, useEffect } from 'react';
 import {
   LayoutDashboard,
   Gift,
@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUserProfile } from '@/lib/UserProfileContext';
+import { NotificationEngineWidget } from './NotificationEngineWidget';
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -31,29 +32,28 @@ const navItems = [
 ];
 
 export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const { profile } = useUserProfile();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const isActive = (href: string) => {
-    if (href === '/') return currentPath === '/';
-    return currentPath.startsWith(href);
-  };
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowNotifications(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setSidebarOpen(true)}
-        className="fixed top-4 left-4 z-50 flex h-10 w-10 items-center justify-center rounded-lg bg-card/90 backdrop-blur-md border border-border lg:hidden"
-      >
-        <Menu className="h-5 w-5 text-muted-foreground" />
-      </button>
-
-      {/* Sidebar Overlay */}
-      {sidebarOpen && (
+      {/* Mobile Sidebar Backdrop */}
+      {mobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-xs z-40 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
+          className="fixed inset-0 z-40 bg-background/80 backdrop-blur-xs lg:hidden"
+          onClick={() => setMobileMenuOpen(false)}
         />
       )}
 
@@ -62,7 +62,7 @@ export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
         className={cn(
           'fixed inset-y-0 left-0 z-50 w-64 flex flex-col lg:translate-x-0 transition-transform duration-300',
           'bg-card/85 backdrop-blur-xl border-r border-border/80',
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         )}
       >
         {/* Logo */}
@@ -74,7 +74,7 @@ export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
             <span className="text-lg font-semibold tracking-tight">StudentStack</span>
           </div>
           <button
-            onClick={() => setSidebarOpen(false)}
+            onClick={() => setMobileMenuOpen(false)}
             className="lg:hidden p-1.5 rounded-md hover:bg-accent text-muted-foreground"
           >
             <X className="h-5 w-5" />
@@ -84,7 +84,7 @@ export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
         {/* Navigation */}
         <nav className="flex-1 p-4 space-y-1">
           {navItems.map(item => {
-            const active = isActive(item.href);
+            const active = currentPath === item.href;
             return (
               <a
                 key={item.label}
@@ -123,6 +123,12 @@ export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
         <header className="sticky top-0 z-30 h-16 border-b border-border/60 bg-background/80 backdrop-blur-xl">
           <div className="flex h-full items-center justify-between px-4 lg:px-8">
             <div className="flex items-center gap-4">
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className="p-2 rounded-lg hover:bg-accent/60 text-muted-foreground lg:hidden"
+              >
+                <Menu className="h-5 w-5" />
+              </button>
               <div className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg bg-card/60 border border-border/60 w-72">
                 <Search className="h-4 w-4 text-muted-foreground/80" />
                 <input
@@ -133,11 +139,24 @@ export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <button className="relative p-2 rounded-lg hover:bg-accent/60 text-muted-foreground transition-colors">
+            <div className="flex items-center gap-3 relative" ref={dropdownRef}>
+              <button
+                onClick={() => setShowNotifications(!showNotifications)}
+                className={cn(
+                  'relative p-2 rounded-lg transition-colors',
+                  showNotifications ? 'bg-accent/60 text-foreground' : 'hover:bg-accent/60 text-muted-foreground'
+                )}
+                aria-label="Toggle notifications"
+              >
                 <Bell className="h-5 w-5" />
                 <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-cyan-500" />
               </button>
+
+              {showNotifications && (
+                <div className="absolute right-0 top-12 w-80 md:w-96 z-50 animate-fadeInUp">
+                  <NotificationEngineWidget />
+                </div>
+              )}
             </div>
           </div>
         </header>
