@@ -681,15 +681,25 @@ export async function getLiveOpportunities(): Promise<Opportunity[]> {
       liveStreamUrl: opp.liveStreamUrl ? sanitizeUrl(opp.liveStreamUrl) : undefined,
     }));
 
-    // Cache the sanitized result
-    cachedOpportunities = sanitized;
+    // Filter out expired opportunities (past-deadline items are dropped before caching)
+    // then sort by soonest deadline, with no-deadline items placed at the end.
+    const filtered = sanitized.filter((opp) => !isExpired(opp.deadline));
+    const sorted = filtered.sort((a, b) => {
+      const aTime = a.deadline ? new Date(a.deadline).getTime() : Infinity;
+      const bTime = b.deadline ? new Date(b.deadline).getTime() : Infinity;
+      return aTime - bTime;
+    });
+
+    // Cache the filtered and sorted result (expired items will never be re-served within TTL)
+    cachedOpportunities = sorted;
     cacheTimestamp = now;
 
-    return sanitized;
+    return sorted;
   } catch (error) {
     console.error('[StudentStack] getLiveOpportunities failed completely, serving fallback:', error instanceof Error ? error.message : error);
 
-    // Deep-sanitize fallback URLs in case of complete error
+    // Deep-sanitize fallback URLs in case of complete error,
+    // then apply the same expiry filter + sort as the happy path.
     const sanitizedFallback = FALLBACK_OPPORTUNITIES.map((opp) => ({
       ...opp,
       url: sanitizeUrl(opp.url),
@@ -697,7 +707,14 @@ export async function getLiveOpportunities(): Promise<Opportunity[]> {
       liveStreamUrl: opp.liveStreamUrl ? sanitizeUrl(opp.liveStreamUrl) : undefined,
     }));
 
-    return sanitizedFallback;
+    const filteredFallback = sanitizedFallback.filter((opp) => !isExpired(opp.deadline));
+    filteredFallback.sort((a, b) => {
+      const aTime = a.deadline ? new Date(a.deadline).getTime() : Infinity;
+      const bTime = b.deadline ? new Date(b.deadline).getTime() : Infinity;
+      return aTime - bTime;
+    });
+
+    return filteredFallback;
   }
 }
 
@@ -723,6 +740,17 @@ export function isClosingSoon(deadline: string | undefined): boolean {
   const diff = deadlineDate.getTime() - now.getTime();
   const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
   return days > 0 && days <= 7;
+}
+
+/** Returns true if deadline is a valid date that has already passed.
+ *  - No deadline (undefined/null/empty) → false (keep the item).
+ *  - Unparseable string → false (keep the item; don't crash).
+ */
+export function isExpired(deadline: string | undefined): boolean {
+  if (!deadline) return false;
+  const date = new Date(deadline);
+  if (isNaN(date.getTime())) return false; // invalid date string → treat as no deadline
+  return date.getTime() < Date.now();
 }
 
 /** Format date for human-readable display */
