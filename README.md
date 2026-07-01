@@ -15,7 +15,7 @@ A premium developer dashboard for students to discover, track, and save hackatho
 
 ## Data Sourcing & Architecture
 StudentStack implements a robust hybrid data acquisition pipeline to balance dynamic scraping and reliable uptime:
-- **Internships:** Parsed in real-time from the popular community-maintained [pittcsc/Summer2024-Internships](https://github.com/pittcsc/Summer2024-Internships) repository README markdown tables.
+- **Internships:** Parsed in real-time from the popular community-maintained [SimplifyJobs/Summer2026-Internships](https://github.com/SimplifyJobs/Summer2026-Internships) repository README markdown tables.
 - **Hackathons:** Sourced from a curated database of top hackathons (Google Summer of Code, Smart India Hackathon, MLH, HackMIT), loaded from a remote GitHub raw JSON feed with a local offline failover database.
 - **Student Packs:** Manually-curated database of the top student developer benefits (GitHub Student Pack, JetBrains IDEs, Notion Education, Figma Education), loaded from a remote raw JSON feed with local JSON backups.
 
@@ -40,7 +40,7 @@ Create a `.env.local` file in the root directory:
 # Optional: Override remote JSON data endpoints
 NEXT_PUBLIC_HACKATHON_DATA_URL=https://raw.githubusercontent.com/SumedhSA3021/Student_Stack/main/data/hackathons.json
 NEXT_PUBLIC_STUDENT_PACKS_URL=https://raw.githubusercontent.com/SumedhSA3021/Student_Stack/main/data/student_packs.json
-NEXT_PUBLIC_INTERNSHIP_DATA_URL=https://raw.githubusercontent.com/pittcsc/Summer2024-Internships/dev/README.md
+NEXT_PUBLIC_INTERNSHIP_DATA_URL=https://raw.githubusercontent.com/SimplifyJobs/Summer2026-Internships/dev/README.md
 ```
 
 ### 4. Run the development server

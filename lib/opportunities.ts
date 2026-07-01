@@ -63,7 +63,7 @@ const FALLBACK_OPPORTUNITIES: Opportunity[] = [
   },
   {
     id: 'fallback-4',
-    title: 'Google Summer of Code 2025',
+    title: 'Google Summer of Code 2026',
     description: 'Work with open source organizations on real projects. Get paid while learning from experienced mentors in the community.',
     category: 'hackathons',
     provider: 'Google',
@@ -244,7 +244,7 @@ const FALLBACK_OPPORTUNITIES: Opportunity[] = [
   },
   {
     id: 'fallback-15',
-    title: 'HackMIT 2025',
+    title: 'HackMIT 2026',
     description: 'MIT\'s annual flagship hackathon. 1,000+ hackers, 36 hours, build anything. Top prizes include internship fast-tracks at sponsor companies.',
     category: 'hackathons',
     provider: 'MIT',
@@ -621,7 +621,7 @@ async function fetchStudentPacks(): Promise<Opportunity[]> {
 /** Fetch internship listings from markdown-formatted GitHub repos */
 async function fetchInternships(): Promise<Opportunity[]> {
   const INTERNSHIP_DATA_URL = process.env.NEXT_PUBLIC_INTERNSHIP_DATA_URL
-    || 'https://raw.githubusercontent.com/pittcsc/Summer2024-Internships/dev/README.md';
+    || 'https://raw.githubusercontent.com/SimplifyJobs/Summer2026-Internships/dev/README.md';
 
   try {
     const response = await fetchWithTimeout(INTERNSHIP_DATA_URL, 8000);
