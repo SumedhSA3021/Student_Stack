@@ -239,7 +239,7 @@ const FALLBACK_OPPORTUNITIES: Opportunity[] = [
     eventType: 'seminar',
     speaker: 'Andrej Karpathy',
     venue: 'Stanford Gates Auditorium',
-    liveStreamUrl: 'https://youtube.com/stanfordhai',
+    liveStreamUrl: 'https://www.youtube.com/@StanfordHAI',
     registrationUrl: 'https://hai.stanford.edu/events',
   },
   {
@@ -257,7 +257,7 @@ const FALLBACK_OPPORTUNITIES: Opportunity[] = [
     source: 'hackmit',
     createdAt: new Date().toISOString(),
     eventType: 'hackathon',
-    registrationUrl: 'https://hackmit.org/register',
+    registrationUrl: 'https://hackmit.org',
     venue: 'MIT Stata Center, Cambridge MA',
   },
   {
@@ -274,7 +274,7 @@ const FALLBACK_OPPORTUNITIES: Opportunity[] = [
     createdAt: new Date().toISOString(),
     eventType: 'seminar',
     speaker: 'Mona Octocat',
-    liveStreamUrl: 'https://youtube.com/githubeducation',
+    liveStreamUrl: 'https://www.youtube.com/@GitHubEducation',
     registrationUrl: 'https://education.github.com/events',
   },
   {
@@ -309,7 +309,7 @@ const FALLBACK_OPPORTUNITIES: Opportunity[] = [
     eventType: 'seminar',
     speaker: 'Jeff Dean',
     venue: 'Virtual — Google Meet',
-    liveStreamUrl: 'https://youtube.com/googledeepmind',
+    liveStreamUrl: 'https://www.youtube.com/@GoogleDeepMind',
     registrationUrl: 'https://deepmind.google/education',
   },
 ];
