@@ -56,7 +56,7 @@ const FALLBACK_OPPORTUNITIES: Opportunity[] = [
     claimed: true,
     featured: false,
     tags: ['GCP', 'Cloud', 'Certification'],
-    url: 'https://cloud.google.com/training/student-innovators',
+    url: 'https://cloud.google.com/edu/students',
     source: 'google-cloud',
     createdAt: new Date().toISOString(),
     eventType: 'general',
@@ -76,7 +76,7 @@ const FALLBACK_OPPORTUNITIES: Opportunity[] = [
     source: 'gsoc',
     createdAt: new Date().toISOString(),
     eventType: 'hackathon',
-    registrationUrl: 'https://summerofcode.withgoogle.com/register',
+    registrationUrl: 'https://summerofcode.withgoogle.com',
   },
   {
     id: 'fallback-5',
