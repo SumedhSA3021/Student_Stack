@@ -33,19 +33,21 @@ export function OpportunityGrid({
     <div className={cn(
       'grid gap-4 lg:gap-5',
       'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
+      'stagger-children',
       className
     )}>
       {filtered.map(opportunity => (
-        <OpportunityCard
-          key={opportunity.id}
-          opportunity={opportunity}
-          onClaim={onClaim}
-          onBookmark={onBookmark}
-          showBookmark={showBookmark}
-          isBookmarked={isBookmarked?.(opportunity.id)}
-          showRemove={showRemove}
-          onRemove={onRemove}
-        />
+        <div key={opportunity.id} className="hover-lift animate-fadeInUp">
+          <OpportunityCard
+            opportunity={opportunity}
+            onClaim={onClaim}
+            onBookmark={onBookmark}
+            showBookmark={showBookmark}
+            isBookmarked={isBookmarked?.(opportunity.id)}
+            showRemove={showRemove}
+            onRemove={onRemove}
+          />
+        </div>
       ))}
     </div>
   );

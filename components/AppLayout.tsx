@@ -62,7 +62,8 @@ export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-64 flex flex-col lg:translate-x-0 transition-transform duration-300',
+          'fixed inset-y-0 left-0 z-50 w-64 flex flex-col lg:translate-x-0',
+          'duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
           'bg-card/85 backdrop-blur-xl border-r border-border/80',
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         )}
@@ -166,7 +167,7 @@ export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
               </button>
 
               {showNotifications && (
-                <div className="absolute right-0 top-12 w-80 md:w-96 z-50 animate-fadeInUp">
+                <div className="absolute right-0 top-12 w-80 md:w-96 z-50 animate-scaleIn origin-top-right">
                   <NotificationEngineWidget />
                 </div>
               )}

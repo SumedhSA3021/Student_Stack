@@ -24,7 +24,7 @@ const colorClasses: Record<string, { icon: string; text: string; border: string 
 
 export function KpiStrip({ data }: KpiStripProps) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4 stagger-children">
       {metrics.map(metric => {
         const value = data[metric.key];
         const colors = colorClasses[metric.color];
@@ -33,8 +33,9 @@ export function KpiStrip({ data }: KpiStripProps) {
           <div
             key={metric.key}
             className={cn(
-              'group relative overflow-hidden rounded-xl border border-border bg-card/45 backdrop-blur-sm p-4 lg:p-5 transition-all duration-300',
-              'hover:border-border/80 hover:bg-card/70 shadow-sm'
+              'group relative overflow-hidden rounded-xl border border-border bg-card/45 backdrop-blur-sm p-4 lg:p-5',
+              'transition-all duration-300 hover:border-border/80 hover:bg-card/70 shadow-sm',
+              'hover-lift animate-fadeInUp cursor-default'
             )}
           >
             {/* Gradient Background */}
@@ -42,7 +43,7 @@ export function KpiStrip({ data }: KpiStripProps) {
               className={cn(
                 'absolute inset-0 opacity-50 bg-gradient-to-br',
                 metric.bgGradient,
-                'transition-opacity duration-300 group-hover:opacity-70'
+                'transition-opacity duration-300 group-hover:opacity-80'
               )}
             />
 
@@ -50,7 +51,7 @@ export function KpiStrip({ data }: KpiStripProps) {
               <div className="flex items-center gap-2 mb-2">
                 <div className={cn(
                   'flex h-8 w-8 items-center justify-center rounded-lg bg-accent/60',
-                  'border border-border/80'
+                  'border border-border/80 transition-transform duration-300 group-hover:scale-110'
                 )}>
                   <metric.icon className={cn('h-4 w-4', colors.icon)} />
                 </div>
@@ -60,7 +61,7 @@ export function KpiStrip({ data }: KpiStripProps) {
               </div>
 
               <div className="flex items-baseline gap-1">
-                <span className={cn('text-2xl lg:text-3xl font-bold', colors.text)}>
+                <span className={cn('text-2xl lg:text-3xl font-bold transition-all duration-300 group-hover:scale-105 origin-left inline-block', colors.text)}>
                   {value}
                 </span>
               </div>
