@@ -4,6 +4,7 @@ import { Bell, TrendingUp, Calendar, Clock, ChevronRight, Sparkles } from 'lucid
 import { cn } from '@/lib/utils';
 import { useApp, isClosingSoon } from '@/lib/OpportunityContext';
 import { useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface DerivedNotification {
   id: string;
@@ -49,7 +50,25 @@ function getDaysUntil(dateString: string): number {
 }
 
 export function NotificationEngineWidget() {
-  const { opportunities } = useApp();
+  const { opportunities, setSearchQuery } = useApp();
+  const router = useRouter();
+
+  const handleNotificationClick = (notification: DerivedNotification) => {
+    if (notification.id === 'claimed-summary') {
+      router.push('/saved');
+      return;
+    }
+
+    // Extract the opportunity ID from the notification ID (e.g. deadline-123 -> 123)
+    const typeIdParts = notification.id.split('-');
+    const oppId = typeIdParts.slice(1).join('-');
+    const opp = opportunities.find(o => o.id === oppId);
+
+    if (opp) {
+      setSearchQuery(opp.title);
+      router.push('/opportunities');
+    }
+  };
 
   const notifications = useMemo<DerivedNotification[]>(() => {
     const items: DerivedNotification[] = [];
@@ -115,7 +134,7 @@ export function NotificationEngineWidget() {
   }, [opportunities]);
 
   return (
-    <div className="rounded-xl border border-border bg-card/45 backdrop-blur-sm shadow-sm transition-all duration-300">
+    <div className="rounded-xl border border-border bg-card dark:bg-zinc-900 shadow-2xl transition-all duration-300">
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-border/60">
         <div className="flex items-center gap-2">
@@ -142,6 +161,7 @@ export function NotificationEngineWidget() {
             return (
               <div
                 key={notification.id}
+                onClick={() => handleNotificationClick(notification)}
                 className="group flex items-start gap-3 px-5 py-3.5 hover:bg-accent/40 transition-colors cursor-pointer"
               >
                 {/* Icon */}

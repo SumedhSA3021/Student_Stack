@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useAuth } from './AuthContext';
 
 export interface UserProfile {
   name: string;
@@ -21,53 +22,54 @@ interface UserProfileContextType {
   clearProfile: () => void;
 }
 
-const STORAGE_KEY = 'studentstack_user_profile';
-
 const UserProfileContext = createContext<UserProfileContextType | null>(null);
 
-function loadProfile(): UserProfile | null {
-  if (typeof window === 'undefined') return null;
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      return JSON.parse(stored);
-    }
-  } catch {
-    // Ignore parsing errors
-  }
-  return null;
-}
-
-function persistProfile(profile: UserProfile | null): void {
-  if (typeof window === 'undefined') return;
-  try {
-    if (profile) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
-    } else {
-      localStorage.removeItem(STORAGE_KEY);
-    }
-  } catch {
-    // Ignore storage errors
-  }
-}
-
 export function UserProfileProvider({ children }: { children: ReactNode }) {
+  const { user } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    setProfile(loadProfile());
+    if (!user) {
+      setProfile(null);
+      setHydrated(true);
+      return;
+    }
+
+    const STORAGE_KEY = `studentstack_user_profile_${user.email}`;
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        setProfile(JSON.parse(stored));
+      } else {
+        setProfile(null);
+      }
+    } catch {
+      setProfile(null);
+    }
     setHydrated(true);
-  }, []);
+  }, [user]);
 
   const saveProfile = (newProfile: UserProfile) => {
+    if (!user) return;
     setProfile(newProfile);
-    persistProfile(newProfile);
+    const STORAGE_KEY = `studentstack_user_profile_${user.email}`;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newProfile));
+    } catch (err) {
+      console.error('Failed to save profile:', err);
+    }
   };
 
   const clearProfile = () => {
+    if (!user) return;
     setProfile(null);
-    persistProfile(null);
+    const STORAGE_KEY = `studentstack_user_profile_${user.email}`;
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (err) {
+      console.error('Failed to clear profile:', err);
+    }
   };
 
   // Prevent hydration mismatch — show loading skeleton until client-side hydration

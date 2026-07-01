@@ -12,11 +12,13 @@ import {
   Bell,
   Search,
   User,
-  Sparkles
+  Sparkles,
+  LogOut
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUserProfile } from '@/lib/UserProfileContext';
 import { useApp } from '@/lib/OpportunityContext';
+import { useAuth } from '@/lib/AuthContext';
 import { NotificationEngineWidget } from './NotificationEngineWidget';
 
 interface AppLayoutProps {
@@ -34,6 +36,7 @@ const navItems = [
 
 export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
   const { profile } = useUserProfile();
+  const { user, signOut } = useAuth();
   const { searchQuery, setSearchQuery } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -108,14 +111,27 @@ export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
 
         {/* User Profile */}
         <div className="p-4 border-t border-border/60">
-          <div className="flex items-center gap-3 px-2 py-2.5">
-            <div className="h-9 w-9 rounded-full bg-gradient-to-br from-cyan-400 to-emerald-500 flex items-center justify-center">
-              <User className="h-4 w-4 text-white" />
+          <div className="flex items-center justify-between px-2 py-2.5">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="h-9 w-9 rounded-full bg-gradient-to-br from-cyan-400 to-emerald-500 flex items-center justify-center overflow-hidden shrink-0 border border-cyan-500/10">
+                {user?.avatarUrl ? (
+                  <img src={user.avatarUrl} alt="Avatar" referrerPolicy="no-referrer" className="h-full w-full object-cover" />
+                ) : (
+                  <span className="text-sm font-bold text-white uppercase">{profile?.name ? profile.name.charAt(0) : (user?.name ? user.name.charAt(0) : 'S')}</span>
+                )}
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="text-sm font-medium truncate text-foreground">{profile?.name || user?.name || 'Student'}</span>
+                <span className="text-xs text-muted-foreground truncate">{profile?.institutionName || 'StudentStack'}</span>
+              </div>
             </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-sm font-medium truncate">{profile?.name || 'Student'}</span>
-              <span className="text-xs text-muted-foreground truncate">{profile?.institutionName || 'Student'}</span>
-            </div>
+            <button
+              onClick={() => signOut()}
+              className="p-1.5 rounded-lg hover:bg-rose-500/10 hover:text-rose-500 text-muted-foreground transition-all duration-200 cursor-pointer"
+              title="Sign Out"
+            >
+              <LogOut className="h-4 w-4" />
+            </button>
           </div>
         </div>
       </aside>

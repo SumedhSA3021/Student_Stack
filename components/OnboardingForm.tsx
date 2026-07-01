@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useUserProfile, UserProfile } from '@/lib/UserProfileContext';
+import { useAuth } from '@/lib/AuthContext';
 import {
   User,
   Phone,
@@ -95,11 +96,12 @@ const STEPS: { title: string; subtitle: string; fields: FormField[] }[] = [
 
 export function OnboardingForm() {
   const { saveProfile } = useUserProfile();
+  const { user } = useAuth();
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<UserProfile>({
-    name: '',
+    name: user?.name || '',
     mobile: '',
-    email: '',
+    email: user?.email || '',
     institutionName: '',
     institutionCity: '',
     institutionState: '',
