@@ -12,7 +12,7 @@ import { toast, Toaster } from 'sonner';
 type SortOption = 'default' | 'deadline-asc' | 'deadline-desc';
 
 export function OpportunitiesContent() {
-  const { opportunities, metrics, claimOpportunity, bookmarkOpportunity, unbookmarkOpportunity, isBookmarked } = useApp();
+  const { opportunities, metrics, claimOpportunity, bookmarkOpportunity, unbookmarkOpportunity, isBookmarked, searchQuery } = useApp();
   const [selectedCategory, setSelectedCategory] = useState<OpportunityCategory | 'all' | 'seminars'>('all');
   const [sortOption, setSortOption] = useState<SortOption>('default');
 
@@ -22,6 +22,17 @@ export function OpportunitiesContent() {
       : selectedCategory === 'seminars'
         ? opportunities.filter(opp => opp.eventType === 'seminar')
         : opportunities.filter(opp => opp.category === selectedCategory);
+
+    // Apply full-text search across title, description, provider, and tags
+    if (searchQuery.trim()) {
+      const q = searchQuery.trim().toLowerCase();
+      filtered = filtered.filter(opp =>
+        opp.title.toLowerCase().includes(q) ||
+        opp.description.toLowerCase().includes(q) ||
+        opp.provider.toLowerCase().includes(q) ||
+        opp.tags.some(tag => tag.toLowerCase().includes(q))
+      );
+    }
 
     // Sort by deadline
     if (sortOption === 'deadline-asc') {
@@ -41,7 +52,7 @@ export function OpportunitiesContent() {
     }
 
     return filtered;
-  }, [opportunities, selectedCategory, sortOption]);
+  }, [opportunities, selectedCategory, sortOption, searchQuery]);
 
   // Calculate per-category counts
   const categoryCounts = useMemo(() => {

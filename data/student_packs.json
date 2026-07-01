@@ -154,14 +154,14 @@
     "registrationUrl": "https://cloud.google.com/edu/students"
   },
   {
-    "title": "Heroku Student Offer",
-    "description": "Get free credit of $13 per month for up to 12 months to run dynos for your student applications and projects.",
-    "provider": "Heroku",
-    "value": "₹13,000 value",
-    "url": "https://www.heroku.com/github-students",
+    "title": "Railway Student Plan",
+    "description": "Modern cloud deployment platform with a free student tier. Deploy apps, databases, and cron jobs with zero config. $5/month credit included.",
+    "provider": "Railway",
+    "value": "$5/mo credit",
+    "url": "https://railway.app",
     "tags": ["PaaS", "Deployment", "Database"],
-    "source": "heroku",
+    "source": "railway",
     "event_type": "discount",
-    "registrationUrl": "https://www.heroku.com/github-students"
+    "registrationUrl": "https://railway.app"
   }
 ]

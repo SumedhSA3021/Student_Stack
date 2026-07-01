@@ -9,19 +9,23 @@ export const metadata: Metadata = {
   title: 'StudentStack - Discover Student Opportunities',
   description: 'A premium platform for students to discover and claim exclusive opportunities, student packs, cloud credits, hackathons, and more.',
   openGraph: {
+    title: 'StudentStack — Discover Student Opportunities',
+    description: 'A premium platform for students to discover hackathons, developer packs, cloud credits, internships, and more.',
     images: [
       {
-        url: 'https://bolt.new/static/og_default.png',
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'StudentStack Dashboard',
       },
     ],
+    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    images: [
-      {
-        url: 'https://bolt.new/static/og_default.png',
-      },
-    ],
+    title: 'StudentStack — Discover Student Opportunities',
+    description: 'A premium platform for students to discover hackathons, developer packs, cloud credits, internships, and more.',
+    images: ['/og.png'],
   },
 };
 

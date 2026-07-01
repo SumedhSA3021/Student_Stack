@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUserProfile } from '@/lib/UserProfileContext';
+import { useApp } from '@/lib/OpportunityContext';
 import { NotificationEngineWidget } from './NotificationEngineWidget';
 
 interface AppLayoutProps {
@@ -33,6 +34,7 @@ const navItems = [
 
 export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
   const { profile } = useUserProfile();
+  const { searchQuery, setSearchQuery } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -129,13 +131,24 @@ export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
               >
                 <Menu className="h-5 w-5" />
               </button>
-              <div className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg bg-card/60 border border-border/60 w-72">
-                <Search className="h-4 w-4 text-muted-foreground/80" />
+              <div className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg bg-card/60 border border-border/60 w-72 focus-within:border-cyan-500/50 transition-colors">
+                <Search className="h-4 w-4 text-muted-foreground/80 flex-shrink-0" />
                 <input
                   type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search opportunities..."
                   className="flex-1 bg-transparent text-sm text-foreground placeholder-muted-foreground outline-none"
                 />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="text-muted-foreground/60 hover:text-foreground transition-colors text-xs"
+                    aria-label="Clear search"
+                  >
+                    ✕
+                  </button>
+                )}
               </div>
             </div>
 

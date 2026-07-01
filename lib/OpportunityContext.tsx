@@ -17,6 +17,7 @@ interface AppState {
   settings: UserSettings;
   isLoading: boolean;
   metrics: Metrics;
+  searchQuery: string;
 }
 
 interface AppContextType extends AppState {
@@ -29,6 +30,7 @@ interface AppContextType extends AppState {
   updateSettings: (settings: Partial<UserSettings>) => void;
   getBookmarkedOpportunities: () => Opportunity[];
   getOpportunitiesWithDeadlines: () => Opportunity[];
+  setSearchQuery: (q: string) => void;
 }
 
 const defaultSettings: UserSettings = {
@@ -82,6 +84,7 @@ export function AppProvider({ children, initialOpportunities }: { children: Reac
     loadFromStorage(STORAGE_KEYS.settings, defaultSettings)
   );
   const [isLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Persist claimed IDs
   useEffect(() => {
@@ -152,6 +155,8 @@ export function AppProvider({ children, initialOpportunities }: { children: Reac
         settings,
         isLoading,
         metrics,
+        searchQuery,
+        setSearchQuery,
         claimOpportunity,
         unclaimOpportunity,
         bookmarkOpportunity,
