@@ -1,0 +1,61 @@
+[
+  {
+    "title": "Google Summer of Code 2025",
+    "description": "Work with open source organizations on real projects. Get paid stipend while learning from experienced mentors in the community.",
+    "provider": "Google",
+    "value": "₹2.5L - ₹5.5L stipend",
+    "url": "https://summerofcode.withgoogle.com",
+    "tags": ["Open Source", "Mentorship", "Stipend"],
+    "source": "gsoc",
+    "event_type": "hackathon",
+    "registrationUrl": "https://summerofcode.withgoogle.com"
+  },
+  {
+    "title": "MLH Global Hack Week: AI/ML Edition",
+    "description": "A week-long hackathon celebrating artificial intelligence and machine learning. Build projects, attend workshops, and win prizes.",
+    "provider": "Major League Hacking",
+    "value": "₹5L+ in prizes",
+    "url": "https://ghw.mlh.io",
+    "tags": ["AI/ML", "Hackathon", "Prizes"],
+    "source": "mlh",
+    "event_type": "hackathon",
+    "registrationUrl": "https://ghw.mlh.io",
+    "venue": "Virtual — Global"
+  },
+  {
+    "title": "HackMIT 2025",
+    "description": "MIT's annual flagship hackathon. 1,000+ hackers, 36 hours, build anything. Top prizes include internship fast-tracks at sponsor companies.",
+    "provider": "MIT",
+    "value": "₹8L+ in prizes",
+    "url": "https://hackmit.org",
+    "tags": ["MIT", "Flagship", "36hr"],
+    "source": "hackmit",
+    "event_type": "hackathon",
+    "registrationUrl": "https://hackmit.org",
+    "venue": "MIT Stata Center, Cambridge MA"
+  },
+  {
+    "title": "Devfolio Ethereum India Hackathon",
+    "description": "India's premier Ethereum hackathon. Build Web3 solutions on Ethereum, showcase to top developers and venture funds.",
+    "provider": "Devfolio",
+    "value": "₹15L+ in grants & prizes",
+    "url": "https://ethindia.co",
+    "tags": ["Web3", "Blockchain", "Ethereum"],
+    "source": "ethindia",
+    "event_type": "hackathon",
+    "registrationUrl": "https://ethindia.co",
+    "venue": "Bengaluru, India"
+  },
+  {
+    "title": "Smart India Hackathon (SIH)",
+    "description": "National-level hackathon by the Government of India. Solve real-world problem statements submitted by ministries and departments.",
+    "provider": "Govt of India",
+    "value": "₹1L per problem statement",
+    "url": "https://sih.gov.in",
+    "tags": ["Government", "National", "Hardware/Software"],
+    "source": "sih",
+    "event_type": "hackathon",
+    "registrationUrl": "https://sih.gov.in",
+    "venue": "Multiple Nodal Centers"
+  }
+]

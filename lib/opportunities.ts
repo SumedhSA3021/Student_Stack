@@ -549,7 +549,7 @@ function parseMarkdownLinks(markdown: string, defaultCategory: OpportunityCatego
 /** Fetch hackathon event data from public GitHub sources */
 async function fetchHackathons(): Promise<Opportunity[]> {
   const HACKATHON_DATA_URL = process.env.NEXT_PUBLIC_HACKATHON_DATA_URL
-    || 'https://raw.githubusercontent.com/devisle/hackathon-list/main/data/hackathons.json';
+    || 'https://raw.githubusercontent.com/SumedhSA3021/Student_Stack/main/data/hackathons.json';
 
   try {
     const response = await fetchWithTimeout(HACKATHON_DATA_URL, 8000);
@@ -567,18 +567,53 @@ async function fetchHackathons(): Promise<Opportunity[]> {
 
     return [];
   } catch (error) {
-    console.error('[StudentStack] Failed to fetch hackathons:', error instanceof Error ? error.message : error);
+    console.warn('[StudentStack] Failed to fetch hackathons from URL, falling back to local database:', error instanceof Error ? error.message : error);
+    try {
+      const localData = require('../data/hackathons.json');
+      if (Array.isArray(localData)) {
+        return localData.slice(0, 20).map((item: ApiOpportunity) => ({
+          ...normalizeOpportunity(item, 'hackathons'),
+          eventType: 'hackathon' as EventType,
+        }));
+      }
+    } catch (localErr) {
+      console.error('[StudentStack] Local hackathons fallback also failed:', localErr);
+    }
     return [];
   }
 }
 
-/** Fetch student pack opportunities (placeholder for real API) */
+/** Fetch student pack opportunities from curated database */
 async function fetchStudentPacks(): Promise<Opportunity[]> {
+  const STUDENT_PACKS_URL = process.env.NEXT_PUBLIC_STUDENT_PACKS_URL
+    || 'https://raw.githubusercontent.com/SumedhSA3021/Student_Stack/main/data/student_packs.json';
+
   try {
-    // Placeholder — in production, this would hit GitHub Education API
+    const response = await fetchWithTimeout(STUDENT_PACKS_URL, 8000);
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const data = await response.json();
+
+    if (Array.isArray(data)) {
+      return data.slice(0, 20).map((item: ApiOpportunity) => 
+        normalizeOpportunity(item, 'student-packs')
+      );
+    }
+
     return [];
   } catch (error) {
-    console.error('[StudentStack] Failed to fetch student packs:', error instanceof Error ? error.message : error);
+    console.warn('[StudentStack] Failed to fetch student packs from URL, falling back to local database:', error instanceof Error ? error.message : error);
+    try {
+      const localData = require('../data/student_packs.json');
+      if (Array.isArray(localData)) {
+        return localData.slice(0, 20).map((item: ApiOpportunity) => 
+          normalizeOpportunity(item, 'student-packs')
+        );
+      }
+    } catch (localErr) {
+      console.error('[StudentStack] Local student packs fallback also failed:', localErr);
+    }
     return [];
   }
 }
