@@ -130,9 +130,6 @@ export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
                   placeholder="Search opportunities..."
                   className="flex-1 bg-transparent text-sm text-foreground placeholder-muted-foreground outline-none"
                 />
-                <kbd className="hidden md:inline-flex h-5 items-center gap-0.5 rounded border border-border bg-accent/60 px-1.5 text-[10px] text-muted-foreground/80">
-                  Cmd+K
-                </kbd>
               </div>
             </div>
 
