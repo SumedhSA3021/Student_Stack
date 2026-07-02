@@ -100,7 +100,7 @@ export function LoginScreen() {
             rotateTouch={true}
           >
             {/* Main Login Card container */}
-            <div className="relative rounded-3xl p-8 flex flex-col overflow-hidden min-h-[440px]">
+            <div className="relative rounded-3xl p-8 flex flex-col min-h-[440px]">
               
               {/* Background layer - Glassmorphism 2.0 at offset 0 */}
               <div 

@@ -513,7 +513,7 @@ export function OpportunityCard({
       {/* Main card inner layout */}
       <div 
         className={cn(
-          'relative w-full h-full flex flex-col p-5 min-h-[250px] rounded-2xl overflow-hidden'
+          'relative w-full h-full flex flex-col p-5 min-h-[250px] rounded-2xl'
         )}
       >
         {/* Background layer - Glassmorphism 2.0 at offset 0 */}
