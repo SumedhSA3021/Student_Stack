@@ -31,13 +31,19 @@ export function OpportunityGrid({
 
   return (
     <div className={cn(
-      'grid gap-4 lg:gap-5',
+      'grid gap-4 lg:gap-6',
       'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
       'stagger-children',
       className
     )}>
       {filtered.map(opportunity => (
-        <div key={opportunity.id} className="hover-lift animate-fadeInUp">
+        <div 
+          key={opportunity.id} 
+          className={cn(
+            'animate-fadeInUp transition-all duration-300',
+            opportunity.featured ? 'sm:col-span-2 lg:col-span-2' : 'col-span-1'
+          )}
+        >
           <OpportunityCard
             opportunity={opportunity}
             onClaim={onClaim}

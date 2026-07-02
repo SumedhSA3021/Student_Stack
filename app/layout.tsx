@@ -1,9 +1,10 @@
 import './globals.css';
+import 'atropos/css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter_Tight } from 'next/font/google';
 import { UserProfileWrapper } from './UserProfileWrapper';
 
-const inter = Inter({ subsets: ['latin'] });
+const interTight = Inter_Tight({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://student-stack-sumedh-ambekars-projects.vercel.app'),
@@ -37,7 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={interTight.className}>
         <UserProfileWrapper>{children}</UserProfileWrapper>
       </body>
     </html>

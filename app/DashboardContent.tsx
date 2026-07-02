@@ -2,13 +2,12 @@
 
 import { useState, useMemo } from 'react';
 import { KpiStrip } from '@/components/KpiStrip';
-import { FeaturedOpportunity } from '@/components/FeaturedOpportunity';
 import { NotificationEngineWidget } from '@/components/NotificationEngineWidget';
 import { CategoryFilterChips } from '@/components/CategoryFilterChips';
 import { OpportunityGrid } from '@/components/OpportunityGrid';
 import { useApp } from '@/lib/OpportunityContext';
 import { OpportunityCategory, CATEGORIES, getFeaturedOpportunities } from '@/lib/opportunities';
-import { SortAsc, Sparkles, ArrowUpDown } from 'lucide-react';
+import { SortAsc, ArrowUpDown } from 'lucide-react';
 import { toast, Toaster } from 'sonner';
 
 type SortOption = 'default' | 'deadline-asc' | 'deadline-desc';
@@ -116,21 +115,6 @@ export function DashboardContent() {
         <KpiStrip data={metrics} />
       </div>
 
-      {/* Featured Section */}
-      <section className="mb-8">
-        <div className="flex items-center gap-2 mb-4">
-          <Sparkles className="h-5 w-5 text-amber-400" />
-          <h2 className="text-lg font-semibold text-foreground">Featured</h2>
-        </div>
-        {featured.length > 0 && (
-          <FeaturedOpportunity
-            opportunity={featured[0]}
-            onClaim={handleClaim}
-            onBookmark={handleBookmark}
-          />
-        )}
-      </section>
-
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 lg:gap-8">
         {/* Opportunities Column */}
@@ -170,7 +154,7 @@ export function DashboardContent() {
             opportunities={filteredOpportunities}
             onClaim={handleClaim}
             onBookmark={handleBookmark}
-            exclude={featured.length > 0 ? [featured[0].id] : []}
+            exclude={[]}
           />
 
           {filteredOpportunities.length === 0 && (

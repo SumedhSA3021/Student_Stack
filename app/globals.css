@@ -246,3 +246,25 @@ textarea,
     scroll-behavior: auto !important;
   }
 }
+
+/* ─────────────────────────────────────────────────────────
+   Glassmorphism 2.0 & Atropos 3D Layout Styles
+──────────────────────────────────────────────────────────── */
+.glass-card-v2 {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.atropos-inner {
+  overflow: visible !important;
+  border-radius: var(--radius);
+}
+
+.atropos {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
