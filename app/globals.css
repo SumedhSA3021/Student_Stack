@@ -268,3 +268,24 @@ textarea,
   height: 100%;
 }
 
+/* ─────────────────────────────────────────────────────────
+   Infinite Scroll Ticker (Marquee)
+──────────────────────────────────────────────────────────── */
+@keyframes marquee-horizontal {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-horizontal-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee {
+  animation: marquee-horizontal 45s linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-horizontal-reverse 45s linear infinite;
+}
+

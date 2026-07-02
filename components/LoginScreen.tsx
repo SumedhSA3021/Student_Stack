@@ -11,7 +11,6 @@ import {
   Lock
 } from 'lucide-react';
 import { useState } from 'react';
-import Atropos from 'atropos/react';
 import { cn } from '@/lib/utils';
 
 export function LoginScreen() {
@@ -36,14 +35,60 @@ export function LoginScreen() {
     },
   ];
 
+  const mockOffers = [
+    { title: 'GitHub Student Pack', value: '₹1.7Cr+ Value' },
+    { title: 'AWS Cloud Credits', value: '₹8,500 Credits' },
+    { title: 'JetBrains Free IDE', value: '₹55,000/yr Value' },
+    { title: 'Figma Pro Suite', value: 'Free for Students' },
+    { title: 'Notion Plus Workspace', value: '₹8,000/yr Value' },
+    { title: 'Vercel Pro Suite', value: '₹16,000/yr Value' },
+    { title: 'DigitalOcean Cloud', value: '₹17,000 Credits' },
+    { title: 'HackMIT 2026', value: '₹8L+ Prize Pools' },
+  ];
+
   return (
     <div className="relative min-h-screen bg-[#030712] text-white flex items-center justify-center p-4 overflow-hidden font-sans">
       
-      {/* Deep Cyber-Ink Ambient Glow Anomalies */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.06)_0%,transparent_70%)] blur-[120px] pointer-events-none z-0" />
-      <div className="absolute bottom-0 left-0 w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.05)_0%,transparent_70%)] blur-[140px] pointer-events-none z-0" />
+      {/* Deep Cyber-Ink Ambient Glow Shadows */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.05)_0%,transparent_70%)] blur-[120px] pointer-events-none z-0" />
+      <div className="absolute bottom-0 left-0 w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.04)_0%,transparent_70%)] blur-[140px] pointer-events-none z-0" />
 
-      {/* Sleek Dot Grid Mesh overlay */}
+      {/* Tickers - Continuous scrolling student offers in background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-[0.05] flex flex-col justify-around py-16 select-none">
+        
+        {/* Row 1: Sliding Left to Right */}
+        <div className="flex gap-6 w-max animate-marquee">
+          {[...mockOffers, ...mockOffers].map((offer, i) => (
+            <div key={i} className="flex items-center gap-3 px-5 py-3.5 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md min-w-[240px]">
+              <div className="h-9 w-9 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center font-bold text-cyan-400">
+                {offer.title.charAt(0)}
+              </div>
+              <div className="text-left">
+                <div className="text-sm font-extrabold text-white leading-tight">{offer.title}</div>
+                <div className="text-xs text-emerald-400 font-bold mt-0.5">{offer.value}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Row 2: Sliding Right to Left */}
+        <div className="flex gap-6 w-max animate-marquee-reverse">
+          {[...mockOffers, ...mockOffers].reverse().map((offer, i) => (
+            <div key={i} className="flex items-center gap-3 px-5 py-3.5 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md min-w-[240px]">
+              <div className="h-9 w-9 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center font-bold text-emerald-400">
+                {offer.title.charAt(0)}
+              </div>
+              <div className="text-left">
+                <div className="text-sm font-extrabold text-white leading-tight">{offer.title}</div>
+                <div className="text-xs text-cyan-400 font-bold mt-0.5">{offer.value}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+
+      {/* Dot Grid Mesh overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:32px_32px] pointer-events-none z-0" />
 
       <div className="relative z-10 w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -90,106 +135,84 @@ export function LoginScreen() {
           </div>
         </div>
 
-        {/* Right Side: Login Box wrapped in Atropos 3D Tilt */}
+        {/* Right Side: Login Box */}
         <div className="lg:col-span-5 w-full max-w-md mx-auto">
-          <Atropos
-            className="w-full rounded-3xl"
-            highlight={true}
-            shadow={true}
-            shadowOffset={35}
-            rotateTouch={true}
-          >
-            {/* Main Login Card container */}
-            <div className="relative rounded-3xl p-8 flex flex-col min-h-[440px]">
-              
-              {/* Background layer - Glassmorphism 2.0 at offset 0 */}
-              <div 
-                className="absolute inset-0 rounded-3xl glass-card-v2 transition-all duration-300 pointer-events-none z-0"
-                data-atropos-offset="0"
-              />
-
-              {/* Security Lock Badge floating at offset 12 */}
-              <div 
-                className="absolute -top-2.5 right-6 flex items-center gap-1 rounded-full bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 px-3 py-1 z-25 shadow-md"
-                data-atropos-offset="12"
-              >
+          <div className="relative rounded-3xl p-8 flex flex-col glass-card-v2 min-h-[440px] shadow-2xl overflow-hidden">
+            
+            {/* Header with Centered Secure OAuth lock badge */}
+            <div className="text-center mb-8 flex flex-col items-center gap-3">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/25 px-3 py-1 shadow-sm">
                 <Lock className="h-3.5 w-3.5 text-emerald-400 animate-pulse" />
                 <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Secure OAuth</span>
               </div>
+              <h2 className="text-2xl font-bold text-zinc-100 mt-1">Get Connected</h2>
+              <p className="text-xs text-zinc-400 font-medium">Authenticate securely to sync your workspace</p>
+            </div>
 
-              {/* Login Card Contents floating at offset 5 */}
-              <div className="relative z-10 flex flex-col flex-1" data-atropos-offset="5">
-                
-                {/* Header */}
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl font-bold text-zinc-100">Get Connected</h2>
-                  <p className="text-xs text-zinc-400 mt-1 font-medium">Authenticate securely to sync your workspace</p>
-                </div>
+            {/* Login Buttons */}
+            <div className="space-y-4 mb-6">
+              
+              {/* GitHub Button */}
+              <button
+                onClick={() => startSignIn('github')}
+                onMouseEnter={() => setHoveredBtn('github')}
+                onMouseLeave={() => setHoveredBtn(null)}
+                className={cn(
+                  "w-full flex items-center justify-center gap-3 py-3.5 px-4 rounded-xl font-bold text-sm transition-all cursor-pointer shadow-md",
+                  "border border-white/5 bg-[#24292f]/60 text-white hover:bg-[#24292f]/90 hover:border-white/10 hover:shadow-black/20"
+                )}
+              >
+                <Github className={cn("h-5 w-5 transition-transform", hoveredBtn === 'github' && "scale-110")} />
+                <span>Continue with GitHub</span>
+              </button>
 
-                {/* Login Buttons */}
-                <div className="space-y-4 mb-6">
-                  
-                  {/* GitHub Button */}
-                  <button
-                    onClick={() => startSignIn('github')}
-                    onMouseEnter={() => setHoveredBtn('github')}
-                    onMouseLeave={() => setHoveredBtn(null)}
-                    className={cn(
-                      "w-full flex items-center justify-center gap-3 py-3.5 px-4 rounded-xl font-bold text-sm transition-all cursor-pointer shadow-md",
-                      "border border-white/5 bg-[#24292f]/60 text-white hover:bg-[#24292f]/90 hover:border-white/10 hover:shadow-black/20"
-                    )}
-                  >
-                    <Github className={cn("h-5 w-5 transition-transform", hoveredBtn === 'github' && "scale-110")} />
-                    <span>Continue with GitHub</span>
-                  </button>
+              {/* Google Button */}
+              <button
+                onClick={() => startSignIn('google')}
+                onMouseEnter={() => setHoveredBtn('google')}
+                onMouseLeave={() => setHoveredBtn(null)}
+                className={cn(
+                  "w-full flex items-center justify-center gap-3 py-3.5 px-4 rounded-xl font-bold text-sm transition-all cursor-pointer shadow-md",
+                  "border border-white/5 bg-white/[0.02] text-white hover:bg-white/[0.05] hover:border-white/10 hover:shadow-black/20"
+                )}
+              >
+                <svg className={cn("h-4 w-4 transition-transform", hoveredBtn === 'google' && "scale-110")} viewBox="0 0 24 24">
+                  <path
+                    fill="#4285F4"
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                  />
+                  <path
+                    fill="#EA4335"
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                  />
+                </svg>
+                <span>Continue with Google</span>
+              </button>
 
-                  {/* Google Button */}
-                  <button
-                    onClick={() => startSignIn('google')}
-                    onMouseEnter={() => setHoveredBtn('google')}
-                    onMouseLeave={() => setHoveredBtn(null)}
-                    className={cn(
-                      "w-full flex items-center justify-center gap-3 py-3.5 px-4 rounded-xl font-bold text-sm transition-all cursor-pointer shadow-md",
-                      "border border-white/5 bg-white/[0.02] text-white hover:bg-white/[0.05] hover:border-white/10 hover:shadow-black/20"
-                    )}
-                  >
-                    <svg className={cn("h-4 w-4 transition-transform", hoveredBtn === 'google' && "scale-110")} viewBox="0 0 24 24">
-                      <path
-                        fill="#4285F4"
-                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                      />
-                      <path
-                        fill="#34A853"
-                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                      />
-                      <path
-                        fill="#FBBC05"
-                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
-                      />
-                      <path
-                        fill="#EA4335"
-                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
-                      />
-                    </svg>
-                    <span>Continue with Google</span>
-                  </button>
+              {/* Separator */}
+              <div className="flex items-center gap-3 my-4">
+                <div className="h-[1px] flex-1 bg-white/[0.05]" />
+                <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Or test the app</span>
+                <div className="h-[1px] flex-1 bg-white/[0.05]" />
+              </div>
 
-                  {/* Separator */}
-                  <div className="flex items-center gap-3 my-4">
-                    <div className="h-[1px] flex-1 bg-white/[0.05]" />
-                    <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Or test the app</span>
-                    <div className="h-[1px] flex-1 bg-white/[0.05]" />
-                  </div>
-
-                  {/* Test Access (Guest Developer) */}
-                  <button
-                    onClick={signInWithTest}
-                    onMouseEnter={() => setHoveredBtn('test')}
-                    onMouseLeave={() => setHoveredBtn(null)}
-                    className={cn(
-                      "w-full flex items-center justify-center gap-2.5 py-3.5 px-4 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-md",
-                      "border border-dashed border-white/10 bg-white/[0.01] text-zinc-400 hover:text-white hover:bg-gradient-to-r hover:from-[#10b981]/15 hover:to-[#22d3ee]/15 hover:border-emerald-500/30"
-                    )}
+              {/* Test Access (Guest Developer) */}
+              <button
+                onClick={signInWithTest}
+                onMouseEnter={() => setHoveredBtn('test')}
+                onMouseLeave={() => setHoveredBtn(null)}
+                className={cn(
+                  "w-full flex items-center justify-center gap-2.5 py-3.5 px-4 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-md",
+                  "border border-dashed border-white/10 bg-white/[0.01] text-zinc-400 hover:text-white hover:bg-gradient-to-r hover:from-[#10b981]/15 hover:to-[#22d3ee]/15 hover:border-emerald-500/30"
+                )}
                   >
                     <span>Continue as Guest Developer</span>
                     <ArrowRight className={cn("h-3.5 w-3.5 text-zinc-500 transition-transform", hoveredBtn === 'test' && "translate-x-1 text-cyan-400")} />
@@ -204,12 +227,9 @@ export function LoginScreen() {
                 </div>
 
               </div>
-
             </div>
-          </Atropos>
-        </div>
 
-      </div>
-    </div>
-  );
+          </div>
+        </div>
+      );
 }
