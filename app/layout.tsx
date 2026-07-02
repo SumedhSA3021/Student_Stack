@@ -6,6 +6,7 @@ import { UserProfileWrapper } from './UserProfileWrapper';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://student-stack-sumedh-ambekars-projects.vercel.app'),
   title: 'StudentStack - Discover Student Opportunities',
   description: 'A premium platform for students to discover and claim exclusive opportunities, student packs, cloud credits, hackathons, and more.',
   openGraph: {

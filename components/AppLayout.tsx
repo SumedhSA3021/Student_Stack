@@ -66,10 +66,11 @@ export function AppLayout({ children, currentPath = '/' }: AppLayoutProps) {
       <aside
         className={cn(
           'fixed inset-y-0 left-0 z-50 w-64 flex flex-col lg:translate-x-0',
-          'duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
+          'duration-300 transition-transform',
           'bg-card/85 backdrop-blur-xl border-r border-border/80',
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         )}
+        style={{ transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)' }}
       >
         {/* Logo */}
         <div className="flex h-16 items-center justify-between px-5 border-b border-border/60">

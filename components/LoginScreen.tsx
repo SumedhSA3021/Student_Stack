@@ -41,8 +41,8 @@ export function LoginScreen() {
       
       {/* Background Glow Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cyan-500/10 rounded-full blur-[120px] animate-pulse duration-[8000ms]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-500/10 rounded-full blur-[120px] animate-pulse duration-[10000ms]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cyan-500/10 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8000ms' }} />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-500/10 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '10000ms' }} />
         <div className="absolute top-[30%] right-[20%] w-[300px] h-[300px] bg-indigo-500/5 rounded-full blur-[100px]" />
       </div>
 
